@@ -5,27 +5,27 @@
 var jsonData = [
     {
         "ID": "1",
-        "NO": "10",
+        "NO": "1",
         "CustomerName": "张三",
-        "Address": "沈阳市浑南新区"
+        "Address": "-"
     },
     {
         "ID": "2",
         "NO": "2",
         "CustomerName": "李四",
-        "Address": "沈阳市浑南新区"
+        "Address": "沈阳市南屏中路6号沈阳理工大学"
     },
     {
         "ID": "3",
         "NO": "3",
         "CustomerName": "王五",
-        "Address": "沈阳市浑南新区"
+        "Address": "沈阳市奥体中心"
     },
     {
         "ID": "4",
         "NO": "4",
         "CustomerName": "张三",
-        "Address": "沈阳市浑南新区"
+        "Address": "-"
     }
 ];
 
@@ -49,34 +49,30 @@ function initialize() {
     map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
 
     var pointArray = [];
-    var i = 0, p = 0;
+    var p = 0;
     var myGeo = new BMap.Geocoder();
-    getGeo();
-
-    function getGeo() {
-        var add = jsonData[i].Address == "" ? "-" : jsonData[i].Address;
-        myGeo.getPoint(add, function (point) {
-            if (point) {
-                /*map.centerAndZoom(point, 16);*/
-                var marker = new BMap.Marker(point);
-                marker.addEventListener("mouseover", markerActive);
-                marker.addEventListener("mouseout", markerOut);
-                map.addOverlay(marker);
-                pointArray[p] = point;
-                var label = new BMap.Label(jsonData[i].NO,
-                    {offset: new BMap.Size(5, 2)});
-                label.setStyle({color: "#ffffff", border: "none", backgroundColor: "#ed2d2d"});
-                marker.setLabel(label);
-                markerArray.push(marker);
-                marker.setTitle(jsonData[i].NO);
-                p++;
-                map.setViewport(pointArray);
-            }
-            i++;
-            if (i < lisNum) {
-                getGeo();
-            }
-        });
+    for (var i = 0; i < lisNum; i++) {
+        (function (e) {
+            var add = jsonData[e].Address == "" ? "-" : jsonData[e].Address;
+            myGeo.getPoint(add, function (point) {
+                if (point) {
+                    /*map.centerAndZoom(point, 16);*/
+                    var marker = new BMap.Marker(point);
+                    marker.addEventListener("mouseover", markerActive);
+                    marker.addEventListener("mouseout", markerOut);
+                    map.addOverlay(marker);
+                    pointArray[p] = point;
+                    var label = new BMap.Label(jsonData[e].NO,
+                        {offset: new BMap.Size(5, 2)});
+                    label.setStyle({color: "#ffffff", border: "none", backgroundColor: "#ed2d2d"});
+                    marker.setLabel(label);
+                    markerArray.push(marker);
+                    marker.setTitle(jsonData[e].NO);
+                    p++;
+                    map.setViewport(pointArray);
+                }
+            });
+        })(i);
     }
 }
 
