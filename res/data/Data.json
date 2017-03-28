@@ -1,0 +1,22 @@
+[
+  {
+    "ID": "1",
+    "CustomerName": "张三",
+    "Address": "沈阳北站"
+  },
+  {
+    "ID": "2",
+    "CustomerName": "李四",
+    "Address": "铁西区"
+  },
+  {
+    "ID": "3",
+    "CustomerName": "王五",
+    "Address": "-"
+  },
+  {
+    "ID": "4",
+    "CustomerName": "张三",
+    "Address": "沈阳北站"
+  }
+]
