@@ -7,7 +7,7 @@ var jsonData = [
         "ID": "1",
         "NO": "1",
         "CustomerName": "张三",
-        "Address": "-"
+        "Address": "北京市"
     },
     {
         "ID": "2",
@@ -25,7 +25,7 @@ var jsonData = [
         "ID": "4",
         "NO": "4",
         "CustomerName": "张三",
-        "Address": "-"
+        "Address": "上海浦东新区"
     }
 ];
 
@@ -49,7 +49,7 @@ function initialize() {
     map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
 
     var pointArray = [];
-    var p = 0;
+    var j = 0;
     var myGeo = new BMap.Geocoder();
     for (var i = 0; i < lisNum; i++) {
         (function (e) {
@@ -61,14 +61,16 @@ function initialize() {
                     marker.addEventListener("mouseover", markerActive);
                     marker.addEventListener("mouseout", markerOut);
                     map.addOverlay(marker);
-                    pointArray[p] = point;
+                    pointArray.push(point);
                     var label = new BMap.Label(jsonData[e].NO,
                         {offset: new BMap.Size(5, 2)});
                     label.setStyle({color: "#ffffff", border: "none", backgroundColor: "#ed2d2d"});
                     marker.setLabel(label);
                     markerArray.push(marker);
                     marker.setTitle(jsonData[e].NO);
-                    p++;
+                }
+                j++;
+                if (j == lisNum) {
                     map.setViewport(pointArray);
                 }
             });
@@ -78,7 +80,6 @@ function initialize() {
 
 function pageFu() {
     var ol = document.getElementById("taskList");
-    var lis = [];
     for (var i = 0; i < lisNum; i++) {
         // 构建任务li
         var newLi = setList(i);
